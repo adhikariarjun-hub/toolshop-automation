@@ -1,0 +1,53 @@
+cy.get(selector, { timeout: ms })
+cy.contains(text, { timeout: ms })
+cy.wait(alias, { timeout: ms })
+
+
+
+
+1. Homepage Load
+
+Homepage loads successfully with product cards, filters bar, and pagination visible
+Verify first page shows expected number of product cards
+
+2. Sort
+
+Verify sort dropdown changes product order (Name A-Z vs Z-A)
+Verify sort by price (low to high) orders prices ascending
+Verify sort by price (high to low) orders prices descending
+
+3. Price Range Filter
+
+Verify setting a price range filters products to only show items within that range
+Verify setting min price higher than max price is handled gracefully
+Verify clearing/resetting the price range restores the full product list
+
+4. Category/Other Filters
+
+Verify selecting a category filter shows only matching products
+Verify combining category + price range filters together works correctly
+Verify "no results" state displays correctly when filters match nothing
+
+5. Product Card → Product Detail Navigation
+
+Verify "Combination Pliers" card is clickable
+Verify clicking it navigates to the product page and displays the same product name
+
+6. Product Detail Page — Action Buttons
+
+Verify "Add to Cart" adds the product, and the cart icon appears in the header
+Verify "Add to Favourite" while unauthenticated shows "Unauthorized, cannot add product to favourites"
+Verify "Compare" button/link on the product page is clickable
+
+7. Related Products
+
+Verify related products section is visible below the product description
+Verify a related product card is clickable and navigates to that product's detail page
+
+8. Comparison Feature
+
+Verify selecting the comparison icon on a product card marks it as selected
+Verify selecting exactly 3 products enables/reveals the "Compare Now" button
+Verify clicking "Compare Now" navigates to the comparison page
+Verify the 3 products shown on the comparison page exactly match the 3 selected on the homepage
+Verify deselecting a product before comparing removes it from the selection count

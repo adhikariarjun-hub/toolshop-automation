@@ -1,0 +1,104 @@
+# Context
+## Sign In
+### Positive Schenarios
+1. Verify that user is successfully navigated to signin screen 
+2. verify that user can successfuly login with valid email address and password pressing login button
+3. verify that user can login successfully clicking sign in with Google
+4. verify that the email field is feed with upper case email address and valid password
+5. verify that leading and trailing spaces in email are trimmed automatically
+6. Verify that eye icon reveals password text when clicked
+7. Verify that eye icon re-masks password when clicked a second time
+8. Verify that toggling password visibility does not alter the submitted value
+
+###Negative 
+1. Verify that the system rejects the user when entered the registered email and invalid passowrd.
+2. Verify that the system rejects the user when entered the unregistered email and valid passowrd.
+3. Validate that system shows error message "Email is required" when email field is left blank
+4. Validate that system shows error message "Password is required" when password field is left blank
+5. Validate that system shows errors when both fields are left blank
+6. Validate that system rejects invalid email format
+7. Verify that extremely long input in email/password field is handled correctly
+8. Verify that system locks or restricts account after repeated failed login attempts
+
+
+## Registration
+
+###Name Fields
+1. Verify that user can enter valid first and last name
+2. Validate that system shows error when first name is left blank
+3. Verify that name fields reject numeric or special character input
+4. Verify that name fields handle very long input correctly
+
+### Date of Birth
+1.Verify that user can enter a valid date of birth in YYYY-MM-DD format
+2.Validate that system rejects a future date of birth
+3.Verify that system enforces a minimum age restriction
+4.Verify that system rejects an invalid date forma
+5.Validate that Date of Birth field cannot be left blank
+
+### Country Dropdown
+1.Verify that user can select a valid country from the dropdown
+2.Validate that Country field shows an error when left unselected
+3.Verify that Country dropdown list loads all expected country options
+4.Verify that selecting a different Country updates dependent address behavior
+
+### Postal Code
+1.Verify that entering a valid postal code auto-fills Street, City, and State
+2.Verify that auto-filled address details match the correct address for the entered postal code
+3.Validate that user can manually correct auto-filled address fields if inaccurate
+4.Verify that entering an invalid/non-existent postal code is handled gracefully
+5.Verify that House Number field remains independent of postal code auto-fill
+6.Validate that blank postal code leaves address fields empty and triggers validation
+
+### Phone Number
+1.Verify that user can enter a valid phone number
+2.Verify that phone field rejects alphabetic or special characters
+3.Verify that phone field handles country-specific number length correctly
+
+### Email Address
+1.Verify that user can register with a valid, unused email address
+2.Validate that system rejects registration with an already-registered email
+3.Verify that system rejects invalid email format
+4.Validate that Email field cannot be left blank
+
+### Password
+1.Verify that password meeting all four requirements is accepted
+2.Validate that password shorter than 8 characters is rejected
+3.Validate that password missing uppercase letter is rejected
+4.Validate that password missing lowercase letter is rejected
+5.Validate that password missing a number is rejected
+6.Validate that password missing a special character is rejected
+7.Verify that password strength meter updates dynamically as password is typed
+8.Verify that eye icon reveals password text when clicked
+9.Verify that eye icon re-masks password when clicked a second time
+10.Verify that toggling password visibility does not alter the entered value
+11.Verify that Password field cannot be left blank
+
+### Register Button
+1.Verify that user can successfully register with all valid details in all mandatory fields
+2.Validate that Register button remains disabled or shows errors until all mandatory fields are valid
+3.Verify that system prevents registration using SQL injection input in any field
+4.Verify that system sanitizes script injection (XSS) input in any text field
+
+
+## Forgot Password
+ ### Positive
+1.Verify that user can request password reset with a valid registered email
+2.Verify that email field accepts input regardless of letter case
+3.Verify that leading/trailing spaces in email are trimmed automatically
+4.Verify that reset link/email is actually delivered to the entered email address
+5.Verify that "Set New Password" button submits the request when the field is filled correctly
+
+### Negative
+1.Verify that system handles a password reset request for an unregistered email
+2.Validate that Email field cannot be left blank
+3.Verify that system rejects invalid email format
+4.Verify that the password reset link expires after a defined time period
+5.Verify that a previously used reset link cannot be reused
+6.Verify that requesting multiple reset emails in quick succession is rate-limited
+7.Verify that system prevents SQL injection input in the email field
+8.Verify that system sanitizes script injection (XSS) input in the email field
+
+
+
+use " data test" while writing automation
