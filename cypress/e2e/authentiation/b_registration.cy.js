@@ -11,6 +11,17 @@ describe("Registration Page - Field Validations", () => {
     cy.get('[data-test="last-name"]').type('Adhikari').should('have.value', 'Adhikari');
   });
 
+  it("should not accept blank first name, last name field", () => {
+    cy.get('[data-test="first-name"]').click();
+    cy.get('[data-test="last-name"]').click();
+    cy.get('[data-test="register-submit"]').click();
+
+    cy.get('[data-test="first-name-error"]', { timeout: 8000 }).should('be.visible');
+    cy.get('[data-test="last-name-error"]', { timeout: 8000 }).should('be.visible');
+    cy.get('[data-test="first-name-error"]', { timeout: 8000 }).contains('First name is required');
+    cy.get('[data-test="last-name-error"]', { timeout: 8000 }).contains('Last name is required');
+  });
+
   it("should reject numeric/special characters and handle very long input in name fields", () => {
     const invalidName = 'Arjun123!@#';
     const longName = 'A'.repeat(100);
@@ -49,6 +60,15 @@ describe("Registration Page - Field Validations", () => {
 
   });
 
+  it("should not accept a blank Date of Birth field ", () => {
+    cy.get('[data-test="dob"]').click();
+    cy.get('[data-test="register-submit"]').click();
+
+    cy.get('[data-test="dob-error"]', { timeout: 8000 }).should('be.visible');
+    cy.get('[data-test="dob-error"]', { timeout: 8000 }).contains('Please enter a valid date in YYYY-MM-DD format.');
+    cy.get('[data-test="dob-error"]', { timeout: 8000 }).contains('Date of Birth is required');
+  });
+
   // COUNTRY DROPDOWN 
 
   it("should allow selecting a valid country from the dropdown", () => {
@@ -63,6 +83,15 @@ describe("Registration Page - Field Validations", () => {
       expect(values).to.include('Australia');
     })
   })
+
+  it("should not accept a blank Country field ", () => {
+    cy.get('[data-test="country"]');
+    cy.get('[data-test="register-submit"]').click();
+
+    cy.get('[data-test="country-error"]', { timeout: 4000 }).should('be.visible');
+    cy.get('[data-test="country-error"]', { timeout: 4000 }).contains('Country is required');
+
+  });
 
   // POSTAL CODE 
 
@@ -82,6 +111,23 @@ describe("Registration Page - Field Validations", () => {
     cy.get('[data-test="state"]').type('statefour');
   });
 
+  it("should not accept a blank postal code, house umber, street, city, state field ", () => {
+    cy.get('[data-test="postal_code"]').click();
+    cy.get('[data-test="house_number"]').click();
+    cy.get('[data-test="register-submit"]').click();
+
+    cy.get('[data-test="postal_code-error"]',{timeout: 8000}).should('be.visible');
+    cy.get('[data-test="house_number-error"]',{timeout: 8000}).should('be.visible');
+    cy.get('[data-test="street-error"]',{timeout: 8000}).should('be.visible');
+    cy.get('[data-test="city-error"]',{timeout: 8000}).should('be.visible');
+    cy.get('[data-test="state-error"]',{timeout: 8000}).should('be.visible');
+    cy.get('[data-test="postal_code-error"]',{timeout: 8000}).contains('Postcode is required');
+    cy.get('[data-test="house_number-error"]',{timeout: 8000}).contains('House number is required');
+    cy.get('[data-test="street-error"]',{timeout: 8000}).contains('Street is required');
+    cy.get('[data-test="city-error"]',{timeout: 8000}).contains('City is required');
+    cy.get('[data-test="state-error"]',{timeout: 8000}).contains('State is required');
+   
+  });
   //  PHONE NUMBER 
 
   it("should accept a valid phone number", () => {
@@ -92,8 +138,17 @@ describe("Registration Page - Field Validations", () => {
     cy.get('[data-test="phone"]').type('abc!@#123');
     cy.get('[data-test="register-submit"]').click();
 
+    cy.get('[data-test="phone-error"]', { timeout: 8000 }).should('be.visible');
+    cy.get('[data-test="phone-error"]', { timeout: 8000 }).contains('Only numbers are allowed.');
+  });
+
+  it("should not accept a blank phone field ", () => {
+    cy.get('[data-test="phone"]').click();
+    cy.get('[data-test="register-submit"]').click();
+
     cy.get('[data-test="phone-error"]',{timeout: 8000}).should('be.visible');
-    cy.get('[data-test="phone-error"]',{timeout: 8000}).contains('Only numbers are allowed.');
+   
+    cy.get('[data-test="phone-error"]',{timeout: 8000}).contains('Phone is required.');
   });
 
   //EMAIL ADDRESS
@@ -116,54 +171,63 @@ describe("Registration Page - Field Validations", () => {
     cy.get('[data-test="email-error"]').should('be.visible').and('contain', 'Email format is invalid');
   });
 
+  it("should not accept a blank phone field ", () => {
+    cy.get('[data-test="email"]').click();
+    cy.get('[data-test="register-submit"]').click();
+
+    cy.get('[data-test="email-error"]',{timeout: 2000}).should('be.visible');
+   
+    cy.get('[data-test="email-error"]',{timeout: 2000}).contains('Email is required');
+  });
+
   //Password
 
   it("should reject a password shorter than 8 characters", () => {
-  cy.visit("https://practicesoftwaretesting.com/auth/register");
+    cy.visit("https://practicesoftwaretesting.com/auth/register");
 
-  cy.get('[data-test="password"]').type('Ab1!');
-  cy.get('[data-test="register-submit"]').click();
+    cy.get('[data-test="password"]').type('Ab1!');
+    cy.get('[data-test="register-submit"]').click();
 
-  cy.get('[data-test="password-error"]').should('be.visible');
-});
+    cy.get('[data-test="password-error"]').should('be.visible');
+  });
 
-it("should reject a password missing an uppercase letter", () => {
-  cy.visit("https://practicesoftwaretesting.com/auth/register");
+  it("should reject a password missing an uppercase letter", () => {
+    cy.visit("https://practicesoftwaretesting.com/auth/register");
 
-  cy.get('[data-test="password"]').type('abcdefg1!');
-  cy.get('[data-test="register-submit"]').click();
+    cy.get('[data-test="password"]').type('abcdefg1!');
+    cy.get('[data-test="register-submit"]').click();
 
-  cy.get('[data-test="password-error"]').should('be.visible');
-});
+    cy.get('[data-test="password-error"]').should('be.visible');
+  });
 
-it("should reject a password missing a lowercase letter", () => {
-  cy.visit("https://practicesoftwaretesting.com/auth/register");
+  it("should reject a password missing a lowercase letter", () => {
+    cy.visit("https://practicesoftwaretesting.com/auth/register");
 
-  cy.get('[data-test="password"]').type('ABCDEFG1!');
-  cy.get('[data-test="register-submit"]').click();
+    cy.get('[data-test="password"]').type('ABCDEFG1!');
+    cy.get('[data-test="register-submit"]').click();
 
-  cy.get('[data-test="password-error"]').should('be.visible');
-});
+    cy.get('[data-test="password-error"]').should('be.visible');
+  });
 
-it("should reject a password missing a number", () => {
-  cy.visit("https://practicesoftwaretesting.com/auth/register");
+  it("should reject a password missing a number", () => {
+    cy.visit("https://practicesoftwaretesting.com/auth/register");
 
-  cy.get('[data-test="password"]').type('Abcdefgh!');
-  cy.get('[data-test="register-submit"]').click();
+    cy.get('[data-test="password"]').type('Abcdefgh!');
+    cy.get('[data-test="register-submit"]').click();
 
-  cy.get('[data-test="password-error"]').should('be.visible');
-});
+    cy.get('[data-test="password-error"]').should('be.visible');
+  });
 
-it("should reject a password missing a special character", () => {
-  cy.visit("https://practicesoftwaretesting.com/auth/register");
+  it("should reject a password missing a special character", () => {
+    cy.visit("https://practicesoftwaretesting.com/auth/register");
 
-  cy.get('[data-test="password"]').type('Abcdefg1');
-  cy.get('[data-test="register-submit"]').click();
+    cy.get('[data-test="password"]').type('Abcdefg1');
+    cy.get('[data-test="register-submit"]').click();
 
-  cy.get('[data-test="password-error"]').should('be.visible');
-});
+    cy.get('[data-test="password-error"]').should('be.visible');
+  });
 
-it.skip("should reject passwords missing required complexity conditions", () => {
+  it.skip("should reject passwords missing required complexity conditions", () => {
 
     const invalidPasswords = [
       'short1!',        // too short
@@ -180,24 +244,23 @@ it.skip("should reject passwords missing required complexity conditions", () => 
     });
   });
 
+  it("should show an error when password is left blank", () => {
+    cy.visit("https://practicesoftwaretesting.com/auth/register");
 
-it("should show an error when password is left blank", () => {
-  cy.visit("https://practicesoftwaretesting.com/auth/register");
+    // fill every other required field except password
+    cy.get('[data-test="first-name"]').type('Arjun');
+    cy.get('[data-test="last-name"]').type('Adhikari');
+    cy.get('[data-test="dob"]').type('1995-06-15');
+    cy.get('[data-test="country"]').select('Nepal');
+    cy.get('[data-test="email"]').type(`arjun.test.${Date.now()}@gmail.com`);
 
-  // fill every other required field except password
-  cy.get('[data-test="first-name"]').type('Arjun');
-  cy.get('[data-test="last-name"]').type('Adhikari');
-  cy.get('[data-test="dob"]').type('1995-06-15');
-  cy.get('[data-test="country"]').select('Nepal');
-  cy.get('[data-test="email"]').type(`arjun.test.${Date.now()}@gmail.com`);
+    cy.get('[data-test="register-submit"]').click();
 
-  cy.get('[data-test="register-submit"]').click();
-
-  cy.get('[data-test="password-error"]').should('be.visible');
-});
+    cy.get('[data-test="password-error"]').should('be.visible');
+  });
 
 
-// REGISTER BUTTON
+  // REGISTER BUTTON
 
   it("should register successfully with all valid mandatory details", () => {
 
@@ -222,23 +285,23 @@ it("should show an error when password is left blank", () => {
   });
 
 
-/*it("should register successfully with all valid mandatory details", () => {
-
-    cy.fixture('registrationData').then((data) => {
-
-        const dynamicEmail = `arjun.test${Date.now()}@gmail.com`;
-
-        cy.get('[data-test="first-name"]').type(data.validUser.firstName);
-        cy.get('[data-test="last-name"]').type(data.validUser.lastName);
-        cy.get('[data-test="dob"]').type(data.validUser.dob);
-        cy.get('[data-test="country"]').select(data.validUser.country);
-        cy.get('[data-test="email"]').type(dynamicEmail);
-        cy.get('[data-test="password"]').type(data.validUser.password);
-
-        cy.get('[data-test="register-submit"]').click();
-        cy.url().should('include', '/auth/login');
-    });
-});*/
+  /*it("should register successfully with all valid mandatory details", () => {
+  
+      cy.fixture('registrationData').then((data) => {
+  
+          const dynamicEmail = `arjun.test${Date.now()}@gmail.com`;
+  
+          cy.get('[data-test="first-name"]').type(data.validUser.firstName);
+          cy.get('[data-test="last-name"]').type(data.validUser.lastName);
+          cy.get('[data-test="dob"]').type(data.validUser.dob);
+          cy.get('[data-test="country"]').select(data.validUser.country);
+          cy.get('[data-test="email"]').type(dynamicEmail);
+          cy.get('[data-test="password"]').type(data.validUser.password);
+  
+          cy.get('[data-test="register-submit"]').click();
+          cy.url().should('include', '/auth/login');
+      });
+  });*/
 
   it("should keep register button disabled or show errors until all mandatory fields are valid", () => {
     cy.get('[data-test="register-submit"]').click();
