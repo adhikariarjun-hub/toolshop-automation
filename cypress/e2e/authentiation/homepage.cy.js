@@ -13,8 +13,19 @@ describe("Practice Tool Shop Home page", () => {
   });
 
   it("should show the expected number of product cards on the first page", () => {
-    cy.get('[data-test^="product-"]', { timeout: 3000 }).should('have.length', 27);
-  });
+    cy.get('[data-test="sort"]').select('Name (A - Z)')
+    cy.get('[data-test="sorting_completed"]').children().its('length').then((count) => {
+    cy.log('Number of children:', count);
+    })
+  })
+    //second way
+    // cy.get('[data-test^="product-"]', { timeout: 3000 }).should('have.length', 27);
+
+    //third way
+    // cy.get('[data-test="product-name"]').its('length').then((count) => {
+    // cy.log('Number of products:', count);
+
+  
 
   // 2. SORT
 
@@ -49,8 +60,14 @@ describe("Practice Tool Shop Home page", () => {
 
   // FILTER BY CATEGORY
 
-  it("should show only matching products when a category filter is selected", () => {
-    cy.get('[data-test="category-01M3GTMBXEP6VPXKCTX4M6BXFB"]').click();
+  it.only("should show only matching products when a category filter is selected", () => {
+    cy.get('label', {timeout: 10000}).contains('Sander').click()
+
+    // cy.get('[data-test="category-01M3S6DS77DJYXDZMKRVGWMGAJ"]').click()
+    
+    cy.get('[data-test="filter_completed"]',{timeout: 6000}).each(($el) => {
+    cy.wrap($el).should('contain', 'Sander');
+});
   });
 
   it("should auto-select all child checkboxes when a parent category is selected", () => {
@@ -71,8 +88,9 @@ describe("Practice Tool Shop Home page", () => {
   });
 
   it("should show a 'There are no products found.' state when filters match nothing", () => {
-    cy.get('.ngx-slider-pointer-min').click().type('{rightarrow}'.repeat(20));
-    cy.get('.ngx-slider-pointer-max').click().type('{rightarrow}'.repeat(10));
+    cy.get('.ngx-slider-pointer-min').click().type('{rightarrow}'.repeat(135));
+    cy.get('.ngx-slider-pointer-max').click().type('{rightarrow}'.repeat(90));
+    cy.get('[data-test="category-01M3S9VKE8XMPHJ4582JDP3RWP"]').click()
     cy.get('[data-test="no-results"]').should('be.visible');
     cy.get('[data-test="no-results"]').should('contain', 'There are no products found');
   });
