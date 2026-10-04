@@ -59,7 +59,7 @@ describe("Practice Tool Shop Home page", () => {
   });
 
   // FILTER BY CATEGORY
-
+  //stash test
   it.only("should show only matching products when a category filter is selected", () => {
     cy.get('label', {timeout: 10000}).contains('Sander').click()
 
