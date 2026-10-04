@@ -1,0 +1,31 @@
+Contact Page — Test Cases
+
+Navigation
+Verify "Contact" link in the navbar is visible and clickable from the homepage
+Verify clicking it navigates to /contact and the Contact form is displayed
+
+Positive
+Verify user can submit the form successfully with all valid required fields filled (First name, Last name, Email, Subject, Message)
+Verify a confirmation message/success state appears after successful submission
+Verify attaching a valid .txt file (0kb, per the site's own constraint) is accepted and submission succeeds
+Verify the Subject dropdown contains the expected list of subject options
+
+Negative — Required Fields
+Verify submitting with blank First name shows a validation error
+Verify submitting with blank Last name shows a validation error
+Verify submitting with blank Email shows a validation error
+Verify submitting with no Subject selected shows a validation error
+Verify submitting with blank Message shows a validation error
+Verify submitting a completely blank form shows all required-field errors at once
+
+Negative — Field-Specific Validation
+Verify an invalid email format is rejected
+Verify First name/Last name reject purely numeric or special-character-only input (if the app validates this — confirm first)
+
+Negative — Attachment (this page's unique edge case)
+Verify uploading a file with a non-.txt extension (e.g., .pdf, .jpg) is rejected
+Verify uploading a .txt file larger than 0kb is rejected, per the stated constraint
+Verify submitting with no attachment at all still succeeds (since Attachment has no *, it's optional)
+
+Negative — Malicious Input
+Verify the Message field sanitizes script injection (XSS) input safely
