@@ -133,7 +133,7 @@ it("should navigate to the Contact page from the homepage", () => {
 
   //  NEGATIVE — ATTACHMENT 
 
-  it.only("should reject a .txt file that is not 0kb", () => {
+  it("should reject a .txt file that is not 0kb", () => {
     cy.get('[data-test="nav-contact"]').click();
 
     cy.get('[data-test="first-name"]').type('Arjun');
@@ -147,6 +147,58 @@ it("should navigate to the Contact page from the homepage", () => {
     cy.get('[data-test="contact-submit"]').click();
 
     cy.contains('File should be empty.').should('be.visible');
+  });
+
+});
+
+
+
+describe("Contact Page - Logged-in State", () => {
+
+  beforeEach(() => {
+    cy.visit("https://practicesoftwaretesting.com/auth/login");
+    cy.get('[data-test="email"]').type('customer@practicesoftwaretesting.com');
+    cy.get('[data-test="password"]').type('welcome01');
+    cy.get('[data-test="login-submit"]').click();
+
+    cy.get('[data-test="nav-contact"]').click();
+  });
+
+  it("should show only Subject, Message, and Attachment fields when logged in", () => {
+   
+
+    cy.get('[data-test="subject"]').should('be.visible');
+    cy.get('[data-test="message"]').should('be.visible');
+    cy.get('[data-test="attachment"]').should('be.visible');
+  });
+
+  it("should submit the contact form successfully while logged in", () => {
+    cy.get('[data-test="subject"]').select('Warranty');
+
+    const message = 'This is a test message with at least fifty characters in it for validation purposes.';
+    cy.get('[data-test="message"]').type(message).should('have.value', message);
+
+    cy.get('[data-test="contact-submit"]').click();
+
+    cy.get('[role="alert"]').should('be.visible').and('contain', 'Thanks for your message! We will contact you shortly.');
+
+  });
+
+  it("should show an error when Subject is left unselected", () => {
+    const message = 'This is a test message with at least fifty characters in it for validation purposes.';
+    cy.get('[data-test="message"]').type(message);
+
+    cy.get('[data-test="contact-submit"]').click();
+
+    cy.get('[data-test="subject-error"]').should('be.visible').and('contain', 'Subject is required');
+  });
+
+  it.only("should show an error when Message is left blank", () => {
+    cy.get('[data-test="subject"]').select('Warranty');
+
+    cy.get('[data-test="contact-submit"]').click();
+
+    cy.get('[data-test="message-error"]').should('be.visible').and('contain', 'Message must be minimal 50 characters');
   });
 
 });

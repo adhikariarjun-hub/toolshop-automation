@@ -1,6 +1,6 @@
 describe("Checkout Flow", () => {
 
-  it.only("should complete a full checkout successfully with Cash on Delivery", () => {
+  it("should complete a full checkout successfully with Cash on Delivery", () => {
 
     cy.visit("https://practicesoftwaretesting.com/");
 
@@ -8,7 +8,7 @@ describe("Checkout Flow", () => {
 
     cy.get('[data-test="product-name"]').contains('Combination Pliers').click();
 
-    // increase quantity by 1, then decrease back by 1 (net effect: still 1)
+    // increase quantity by 1, then decrease back by 1 
     cy.get('[data-test="increase-quantity"]').click();
     cy.get('[data-test="decrease-quantity"]').click();
 
