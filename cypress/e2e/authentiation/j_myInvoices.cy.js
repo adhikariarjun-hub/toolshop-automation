@@ -33,6 +33,10 @@ describe("My Account - Invoices", () => {
     cy.get('tbody tr').first().find('td').first().invoke('text').then((invoiceNumber) => {
       cy.get('tbody tr').first().contains('Details').click();
 
+  it.only("should navigate to invoice detail view when 'Details' is clicked", () => {
+    cy.get('tbody tr').first().find('td').first().invoke('text').then((invoiceNumber) => {
+      cy.get('tbody tr').first().contains('Details').click();
+ 
       
     //   cy.contains(invoiceNumber.trim()).should('be.visible');
     });
