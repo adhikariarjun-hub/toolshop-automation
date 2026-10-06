@@ -56,7 +56,7 @@ it("should navigate to the Contact page from the homepage", () => {
   it("should show an error when First name is left blank", () => {
     cy.get('[data-test="nav-contact"]').click();
 
-    cy.get('[data-test="first-name"]').click().blur(); // focus then blur, to trigger Angular's touched state
+    cy.get('[data-test="first-name"]').click(); 
     cy.get('[data-test="last-name"]').type('Adhikari');
     cy.get('[data-test="email"]').type('mrarjunkomail@gmail.com');
     cy.get('[data-test="subject"]').select('Warranty');
@@ -115,8 +115,9 @@ it("should navigate to the Contact page from the homepage", () => {
     cy.get('[data-test="subject"]').select('Warranty');
 
     cy.get('[data-test="contact-submit"]').click();
+    
 
-    cy.get('[data-test="message-error"]').should('be.visible').and('contain', 'Message must be minimal 50 characters');
+    cy.get('[data-test="message-error"]').should('be.visible').and('contain', 'Message is required');
   });
 
   it("should show all required field errors when the form is submitted blank", () => {
@@ -193,7 +194,7 @@ describe("Contact Page - Logged-in State", () => {
     cy.get('[data-test="subject-error"]').should('be.visible').and('contain', 'Subject is required');
   });
 
-  it.only("should show an error when Message is left blank", () => {
+  it("should show an error when Message is left blank", () => {
     cy.get('[data-test="subject"]').select('Warranty');
 
     cy.get('[data-test="contact-submit"]').click();
