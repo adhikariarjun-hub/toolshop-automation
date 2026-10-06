@@ -29,6 +29,10 @@ describe("My Account - Invoices", () => {
     });
   });
 
+  it("should navigate to invoice detail view when 'Details' is clicked", () => {
+    cy.get('tbody tr').first().find('td').first().invoke('text').then((invoiceNumber) => {
+      cy.get('tbody tr').first().contains('Details').click();
+
   it.only("should navigate to invoice detail view when 'Details' is clicked", () => {
     cy.get('tbody tr').first().find('td').first().invoke('text').then((invoiceNumber) => {
       cy.get('tbody tr').first().contains('Details').click();
