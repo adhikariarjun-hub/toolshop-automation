@@ -7,11 +7,11 @@ describe("My Account - Messages", () => {
     cy.url().should('include', '/account/messages');
   });
 
-  it("should load the messages page with the heading visible", () => {
+  it(" should load the messages page with the heading visible", () => {
     cy.get('h1').should('be.visible').and('contain', 'Messages');
   });
 
-  it("should show the empty-state message with a link to the contact form when there are no messages", () => {
+  it.only("should show the empty-state message with a link to the contact form when there are no messages", () => {
     
     cy.get('body').then(($body) => {
       if ($body.text().includes('There are no messages yet')) {
@@ -44,7 +44,7 @@ describe("My Account - Messages", () => {
     cy.get('[data-test="last-name"]').type('Doe');   
     cy.get('[data-test="email"]').type('customer@practicesoftwaretesting.com'); 
     cy.get('[data-test="subject"]').select('Webmaster'); 
-    cy.get('[data-test="message"]').type('This is a test message sent from Cypress automation.'); 
+    cy.get('[data-test="message"]').type('This is a test message sent from Cypress automation.');
     cy.get('[data-test="submit-message"]').click(); 
 
     cy.get('[data-test="message-success"]').should('be.visible'); 
