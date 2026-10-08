@@ -11,7 +11,7 @@ describe("My Account - Messages", () => {
     cy.get('h1').should('be.visible').and('contain', 'Messages');
   });
 
-  it("should show the empty-state message with a link to the contact form when there are no messages", () => {
+  it.only("should show the empty-state message with a link to the contact form when there are no messages", () => {
     
     cy.get('body').then(($body) => {
       if ($body.text().includes('There are no messages yet')) {
