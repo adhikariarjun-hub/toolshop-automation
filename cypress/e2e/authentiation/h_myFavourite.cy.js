@@ -56,7 +56,7 @@ describe("My Favorites", () => {
     cy.contains('There are no favorites yet. In order to add favorites, please go to the product listing and mark some products as your favorite.').should('be.visible');
   });
 
-  it.only("should show an error when attempting to add the same product to favourites twice", () => {
+  it("should show an error when attempting to add the same product to favourites twice", () => {
      cy.get('[data-test="nav-home"]').click()
     cy.get('[data-test="product-name"]').contains('Pliers').click();
 
@@ -66,6 +66,7 @@ describe("My Favorites", () => {
     cy.get('[data-test="add-to-favorites"]').click();
 
     cy.get('[role="alert"]', {timeout : 5000}).should('be.visible').and('contain', 'Product already in your favorites list.');
+    cy.get()
   });
 
 });
